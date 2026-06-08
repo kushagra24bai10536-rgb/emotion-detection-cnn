@@ -6,9 +6,10 @@ Real-Time Facial Emotion Recognition using CNN, OpenCV & Twilio Alert System
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange)
 ![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green)
 
-# VIT Bhopal University
-| Name | | Kushagra Yadav | 
-| Enrollment | 24BAI10536 |
+## Developer
+**Name:** Kushagra Yadav  
+**Enrollment:** 24BAI10536  
+**University:** VIT Bhopal University
 
 ## Tech Stack
 - Python 3.9+
