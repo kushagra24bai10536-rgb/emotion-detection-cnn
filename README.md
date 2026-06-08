@@ -6,14 +6,10 @@ Real-Time Facial Emotion Recognition using CNN, OpenCV & Twilio Alert System
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange)
 ![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green)
 
-## Team - VIT Bhopal University
+# VIT Bhopal University
 | Name | Enrollment |
 |------|-----------|
-| Kiranjeet Mishra | 24BAI10127 |
 | Kushagra Yadav | 24BAI10536 |
-| Ashutosh Dora | 24BAI10916 |
-| Prakhar Gupta | 24BAI10868 |
-| Aditya Pradeep Khod | 24BAI10366 |
 
 ## Tech Stack
 - Python 3.9+
