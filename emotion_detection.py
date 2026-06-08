@@ -8,7 +8,7 @@ import time
 # Emotion labels (FER2013)
 EMOTIONS = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
 
-# Twilio config (apni values daalo)
+# Twilio config (Put your real values here)
 TWILIO_SID = "your_account_sid"
 TWILIO_TOKEN = "your_auth_token"
 TWILIO_FROM = "+1xxxxxxxxxx"
@@ -17,6 +17,10 @@ TWILIO_TO = "+91xxxxxxxxxx"
 ALERT_EMOTIONS = ["Angry", "Fear", "Sad"]
 last_alert_time = 0
 ALERT_COOLDOWN = 30  # seconds
+
+# Load trained model globally so it loads only once at startup
+print("Loading emotion detection model...")
+MODEL = load_model("model/emotion_model.h5")
 
 def send_alert(emotion):
     try:
@@ -33,20 +37,20 @@ def send_alert(emotion):
 def detect_emotions():
     global last_alert_time
 
-    # Load trained model
-    model = load_model("model/emotion_model.h5")
-
     # Haar cascade for face detection
     face_cascade = cv2.CascadeClassifier(
         cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
     )
 
-    cap = cv2.VideoCapture(0)
-    print("Starting emotion detection... Press Q to quit.")
+    # Force DirectShow backend instead of default MSMF
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    time.sleep(1.0)
+    print("Starting emotion detection... Press 'Q' on the video window to quit.")
 
     while True:
         ret, frame = cap.read()
         if not ret:
+            print("Failed to grab frame from webcam.")
             break
 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -61,7 +65,8 @@ def detect_emotions():
             roi = img_to_array(roi)
             roi = np.expand_dims(roi, axis=0)
 
-            preds = model.predict(roi, verbose=0)[0]
+            # Predict using the globally pre-loaded model
+            preds = MODEL.predict(roi, verbose=0)[0]
             emotion = EMOTIONS[np.argmax(preds)]
             confidence = np.max(preds) * 100
 
@@ -80,11 +85,15 @@ def detect_emotions():
 
         cv2.imshow("Emotion Detection - VIT Bhopal", frame)
 
+        # Break loop when 'q' is pressed
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
+    # Clean up and force close windows
     cap.release()
     cv2.destroyAllWindows()
+    cv2.waitKey(1)  # Crucial extra nudge for Windows to clear window memory instantly
+    print("Camera stream closed cleanly.")
 
 if __name__ == "__main__":
     detect_emotions()
