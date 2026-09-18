@@ -1,1 +1,37 @@
+Project Report: Emotion Detection – Real Time CNN
 
+Developer: Kushagra Yadav (24BAI10536), VIT Bhopal University
+
+1. Problem statement
+Facial emotion detection in real time can have practical use cases such as mental health monitoring, security, etc. This project aims to develop a system that can detect and classify emotions from live webcam feed of facial expression and send SMS alert for any of the three emotions.
+
+2. Objective
+Develop a real-time system for facial emotion detection using CNN, integrate it with face detection using OpenCV, and also integrate SMS alert mechanism (Twilio) for notifying someone if the detected emotion is Angry, Fear or Sad.
+
+3. Tech stack
+
+Python 3.9+
+TensorFlow/Keras – for training CNN model
+OpenCV – for real time face detection using Haar cascades
+Twilio API – for sending SMS alerts
+FER2013 dataset – 35,887 grayscale 48x48 facial images belonging to 7 emotion classes
+
+4. Methodology
+
+FER2013 dataset was used to train a CNN classifier (train_model.py) to recognize 7 emotions: Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral.
+Trained model is saved as emotion_model.h5.
+emotion_detection.py captures real time video from webcam, uses face detector from OpenCV using haar cascades to detect faces in frames, crop them, preprocess them and predict the emotion using trained CNN.
+If the predicted emotion belongs to alert category (Angry, Fear, Sad), and Twilio credentials are provided using environment variables, then it sends an SMS alert after every 30 seconds, else it does not send any alert.
+Credentials are stored using .env file and never hardcoded.
+
+5. Results
+The CNN model achieved approximately 67% validation accuracy on FER2013 dataset after 30 training epochs. The real-time detection pipeline successfully detects faces and classifies emotion with low latency on webcam feed.
+
+6. Challenges faced
+
+Balancing accuracy and speed of detection for real-time pipeline
+Gracefully handling Twilio credential errors without making the application crash
+Consistent face detection under varying light conditions.
+
+7. Conclusion
+This project demonstrates a working pipeline of combination of computer vision and deep learning for real-time emotion detection along with integration of real world alerting mechanism via Twilio. Some future improvements can be made using MTCNN face detector and larger/more diverse training dataset.
