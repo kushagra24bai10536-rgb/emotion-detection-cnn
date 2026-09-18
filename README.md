@@ -17,19 +17,20 @@ Real-Time Facial Emotion Recognition using CNN, OpenCV & Twilio Alert System
 - OpenCV (Face Detection)
 - Twilio API (Real-time Alerts)
 - FER2013 Dataset (48x48 grayscale)
- ## Setup
+
+## Setup
 
 Download FER2013 from Kaggle: https://www.kaggle.com/datasets/msambare/fer2013
 Extract it into `dataset/train` and `dataset/test`.
 
 For Twilio alerts, create a `.env` file in the root with:
 
-TWILIO_SID=your_sid
+TWILIO_ACCOUNT_SID=your_sid
 TWILIO_AUTH_TOKEN=your_token
-TWILIO_FROM=your_twilio_number
-TWILIO_TO=your_phone_number
+TWILIO_FROM_NUMBER=your_twilio_number
+TWILIO_TO_NUMBER=your_phone_number
 
-If you don't want alerts, comment out the Twilio block in emotion_detection.py.
+If you don't have Twilio set up, that's fine — the script checks for missing credentials and just skips sending alerts..
 
 ## Project Structure
 ```
@@ -57,6 +58,7 @@ pip install -r requirements.txt
 ### 2. Train the model (optional)
 ```bash
 python train_model.py
+model/emotion_model.h5 is already included, so this step is only needed if you want to retrain from scratch.
 ```
 
 ### 3. Run real-time detection
