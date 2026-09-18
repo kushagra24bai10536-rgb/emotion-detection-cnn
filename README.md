@@ -56,9 +56,9 @@ pip install -r requirements.txt
 ```
 
 ### 2. Train the model (optional)
+model/emotion_model.h5 is already included, so this step is only needed if you want to retrain from scratch.
 ```bash
 python train_model.py
-model/emotion_model.h5 is already included, so this step is only needed if you want to retrain from scratch.
 ```
 
 ### 3. Run real-time detection
